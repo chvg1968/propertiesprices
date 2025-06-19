@@ -131,7 +131,19 @@
         }
       });
       
-      const priceDisplay = pricesFound ? `${minPrice === Infinity ? 'N/A' : minPrice.toLocaleString()}–${maxPrice === -Infinity ? 'N/A' : maxPrice.toLocaleString()}` : 'N/A';
+      let priceDisplay;
+      if (pricesFound) {
+        const minPriceStr = minPrice.toLocaleString();
+        const maxPriceStr = maxPrice.toLocaleString();
+        if (minPrice === maxPrice) {
+          priceDisplay = minPriceStr;
+        } else {
+          priceDisplay = `${minPriceStr}–${maxPriceStr}`;
+        }
+      } else {
+        priceDisplay = 'N/A';
+      }
+
       const stayDisplay = staysFound ? `${minStay === Infinity ? 'N/A' : minStay}–${maxStay === -Infinity ? 'N/A' : maxStay}` : 'N/A';
 
       return `
@@ -161,7 +173,7 @@
             <tr>
               <th>Month Range</th>
               <th>Min Stay</th>
-              <th>Price Range</th>
+              <th>Price Range US $</th>
             </tr>
           </thead>
           <tbody>
