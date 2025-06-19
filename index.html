@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Property Pricing Summary</title>
+  <style>
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 30px;
+      color: #333;
+    }
+  
+    /* Estilos para el contenedor de iframes, si son necesarios */
+    #container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px; /* Espacio entre iframes */
+    }
+
+    /* Se eliminan los estilos específicos de .property, .group, table, th, td 
+       ya que ahora están dentro de property_iframe_content.html 
+       y los iframes encapsularán esos estilos. 
+       Solo mantenemos estilos generales del body y el contenedor de iframes. */
+
+    @media (max-width: 600px) {
+      /* Ajustes generales si son necesarios para la página principal */
+      body {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="container">
+    <!-- Los iframes se insertarán aquí -->
+  </div>
+
+  <script>
+    const properties = [
+    {
+      "Property": "Villa Clara",
+      "January": "1,600-3,300",
+      "JanuaryMinStay": "3-4",
+      "February": "1,700-2,200",
+      "FebruaryMinStay": "3-4",
+      "March": "1,700-2,200",
+      "MarchMinStay": "3-4",
+      "April": "1,300-2,000",
+      "AprilMinStay": "3-4",
+      "May": "1,100-1,600",
+      "MayMinStay": "2-4",
+      "June": "1,100-1,600",
+      "JuneMinStay": "2-4",
+      "July": "1,100-1,600",
+      "JulyMinStay": "2-4",
+      "August": "1,000-1,600",
+      "AugustMinStay": "2-4",
+      "September": "900-1,500",
+      "SeptemberMinStay": "2-4",
+      "October": "900-1,500",
+      "OctoberMinStay": "2-4",
+      "November": "1,100-2,500",
+      "NovemberMinStay": "2-4",
+      "December": "1,300-3,300",
+      "DecemberMinStay": "3-5"
+    },
+    {
+      "Property": "Ocean View Villa",
+      "January": "1,600-3,300",
+      "JanuaryMinStay": "3-4",
+      "February": "1,700-2,200",
+      "FebruaryMinStay": "3-4",
+      "March": "1,700-2,200",
+      "MarchMinStay": "3-4",
+      "April": "1,300-2,000",
+      "AprilMinStay": "3-4",
+      "May": "1,100-1,600",
+      "MayMinStay": "2-4",
+      "June": "1,100-1,600",
+      "JuneMinStay": "2-4",
+      "July": "1,100-1,600",
+      "JulyMinStay": "2-4",
+      "August": "1,000-1,600",
+      "AugustMinStay": "2-4",
+      "September": "900-1,500",
+      "SeptemberMinStay": "2-4",
+      "October": "900-1,500",
+      "OctoberMinStay": "2-4",
+      "November": "1,100-2,500",
+      "NovemberMinStay": "2-4",
+      "December": "1,300-3,300",
+      "DecemberMinStay": "3-5"
+    },
+    {
+      "Property": "Villa Tiffany",
+      "January": "1,600-3,300",
+      "JanuaryMinStay": "3-4",
+      "February": "1,700-2,200",
+      "FebruaryMinStay": "3-4",
+      "March": "1,700-2,200",
+      "MarchMinStay": "3-4",
+      "April": "1,300-2,000",
+      "AprilMinStay": "3-4",
+      "May": "1,100-1,600",
+      "MayMinStay": "2-4",
+      "June": "1,100-1,600",
+      "JuneMinStay": "2-4",
+      "July": "1,100-1,600",
+      "JulyMinStay": "2-4",
+      "August": "1,000-1,600",
+      "AugustMinStay": "2-4",
+      "September": "900-1,500",
+      "SeptemberMinStay": "2-4",
+      "October": "900-1,500",
+      "OctoberMinStay": "2-4",
+      "November": "1,100-2,500",
+      "NovemberMinStay": "2-4",
+      "December": "1,300-3,300",
+      "DecemberMinStay": "3-5"
+    },
+    {
+      "Property": "Villa Palacio",
+      "January": "1,400-3,100",
+      "JanuaryMinStay": "3-4",
+      "February": "1,500-2,000",
+      "FebruaryMinStay": "3-4",
+      "March": "1,500-2,000",
+      "MarchMinStay": "3-4",
+      "April": "1,300-1,800",
+      "AprilMinStay": "3-4",
+      "May": "900-1,400",
+      "MayMinStay": "2-4",
+      "June": "900-1,400",
+      "JuneMinStay": "2-4",
+      "July": "900-1,400",
+      "JulyMinStay": "2-4",
+      "August": "800-1,400",
+      "AugustMinStay": "2-4",
+      "September": "700-1,200",
+      "SeptemberMinStay": "2-4",
+      "October": "700-1,200",
+      "OctoberMinStay": "2-4",
+      "November": "800-2,300",
+      "NovemberMinStay": "2-4",
+      "December": "1,100-3,100",
+      "DecemberMinStay": "3-5"
+    },
+    {
+      "Property": "Ocean Grace Villa",
+      "January": "1,400-3,100",
+      "JanuaryMinStay": "3-4",
+      "February": "1,500-2,000",
+      "FebruaryMinStay": "3-4",
+      "March": "1,500-2,000",
+      "MarchMinStay": "3-4",
+      "April": "1,300-1,800",
+      "AprilMinStay": "3-4",
+      "May": "900-1,400",
+      "MayMinStay": "2-4",
+      "June": "900-1,400",
+      "JuneMinStay": "2-4",
+      "July": "900-1,400",
+      "JulyMinStay": "2-4",
+      "August": "800-1,400",
+      "AugustMinStay": "2-4",
+      "September": "700-1,200",
+      "SeptemberMinStay": "2-4",
+      "October": "700-1,200",
+      "OctoberMinStay": "2-4",
+      "November": "800-2,300",
+      "NovemberMinStay": "2-4",
+      "December": "1,100-3,100",
+      "DecemberMinStay": "3-5"
+    },
+    {
+      "Property": "Ocean Serenity Villa",
+      "January": "1,400-3,100",
+      "JanuaryMinStay": "3-4",
+      "February": "1,500-2,000",
+      "FebruaryMinStay": "3-4",
+      "March": "1,500-2,000",
+      "MarchMinStay": "3-4",
+      "April": "1,300-1,800",
+      "AprilMinStay": "3-4",
+      "May": "900-1,400",
+      "MayMinStay": "2-4",
+      "June": "900-1,400",
+      "JuneMinStay": "2-4",
+      "July": "900-1,400",
+      "JulyMinStay": "2-4",
+      "August": "800-1,400",
+      "AugustMinStay": "2-4",
+      "September": "700-1,200",
+      "SeptemberMinStay": "2-4",
+      "October": "700-1,200",
+      "OctoberMinStay": "2-4",
+      "November": "800-2,300",
+      "NovemberMinStay": "2-4",
+      "December": "1,100-3,100",
+      "DecemberMinStay": "3-5"
+    },
+    {
+      "Property": "Villa Ocean Bliss",
+      "January": "1,400-3,100",
+      "JanuaryMinStay": "3-4",
+      "February": "1,500-2,000",
+      "FebruaryMinStay": "3-4",
+      "March": "1,500-2,000",
+      "MarchMinStay": "3-4",
+      "April": "1,300-1,800",
+      "AprilMinStay": "3-4",
+      "May": "900-1,400",
+      "MayMinStay": "2-4",
+      "June": "900-1,400",
+      "JuneMinStay": "2-4",
+      "July": "900-1,400",
+      "JulyMinStay": "2-4",
+      "August": "800-1,400",
+      "AugustMinStay": "2-4",
+      "September": "700-1,200",
+      "SeptemberMinStay": "2-4",
+      "October": "700-1,200",
+      "OctoberMinStay": "2-4",
+      "November": "800-2,300",
+      "NovemberMinStay": "2-4",
+      "December": "1,100-3,100",
+      "DecemberMinStay": "3-5"
+    },
+    {
+      "Property": "Villa Ocean Haven",
+      "January": "1,400-3,100",
+      "JanuaryMinStay": "3-4",
+      "February": "1,500-2,000",
+      "FebruaryMinStay": "3-4",
+      "March": "1,500-2,000",
+      "MarchMinStay": "3-4",
+      "April": "1,300-1,800",
+      "AprilMinStay": "3-4",
+      "May": "900-1,400",
+      "MayMinStay": "2-4",
+      "June": "900-1,400",
+      "JuneMinStay": "2-4",
+      "July": "900-1,400",
+      "JulyMinStay": "2-4",
+      "August": "800-1,400",
+      "AugustMinStay": "2-4",
+      "September": "700-1,200",
+      "SeptemberMinStay": "2-4",
+      "October": "700-1,200",
+      "OctoberMinStay": "2-4",
+      "November": "800-2,300",
+      "NovemberMinStay": "2-4",
+      "December": "1,100-3,100",
+      "DecemberMinStay": "3-5"
+    },
+    {
+      "Property": "Villa Ocean Sound",
+      "January": "1,400-3,100",
+      "JanuaryMinStay": "3-4",
+      "February": "1,500-2,000",
+      "FebruaryMinStay": "3-4",
+      "March": "1,500-2,000",
+      "MarchMinStay": "3-4",
+      "April": "1,300-1,800",
+      "AprilMinStay": "3-4",
+      "May": "900-1,400",
+      "MayMinStay": "2-4",
+      "June": "900-1,400",
+      "JuneMinStay": "2-4",
+      "July": "900-1,400",
+      "JulyMinStay": "2-4",
+      "August": "800-1,400",
+      "AugustMinStay": "2-4",
+      "September": "700-1,200",
+      "SeptemberMinStay": "2-4",
+      "October": "700-1,200",
+      "OctoberMinStay": "2-4",
+      "November": "800-2,300",
+      "NovemberMinStay": "2-4",
+      "December": "1,100-3,100",
+      "DecemberMinStay": "3-5"
+    },
+    {
+      "Property": "Villa Paloma",
+      "January": "1,400-3,100",
+      "JanuaryMinStay": "3-4",
+      "February": "1,500-2,000",
+      "FebruaryMinStay": "3-4",
+      "March": "1,500-2,000",
+      "MarchMinStay": "3-4",
+      "April": "1,300-1,800",
+      "AprilMinStay": "3-4",
+      "May": "900-1,400",
+      "MayMinStay": "2-4",
+      "June": "900-1,400",
+      "JuneMinStay": "2-4",
+      "July": "900-1,400",
+      "JulyMinStay": "2-4",
+      "August": "800-1,400",
+      "AugustMinStay": "2-4",
+      "September": "700-1,200",
+      "SeptemberMinStay": "2-4",
+      "October": "700-1,200",
+      "OctoberMinStay": "2-4",
+      "November": "800-2,300",
+      "NovemberMinStay": "2-4",
+      "December": "1,100-3,100",
+      "DecemberMinStay": "3-5"
+    },
+    {
+      "Property": "Villa Flora",
+      "January": "1,100-2,300",
+      "JanuaryMinStay": "4",
+      "February": "1,200-1,800",
+      "FebruaryMinStay": "4",
+      "March": "1,200-1,800",
+      "MarchMinStay": "4",
+      "April": "1,100-1,500",
+      "AprilMinStay": "4",
+      "May": "999-1,099",
+      "MayMinStay": "4",
+      "June": "999-1,099",
+      "JuneMinStay": "4",
+      "July": "999-1,099",
+      "JulyMinStay": "4",
+      "August": "999-1,099",
+      "AugustMinStay": "4",
+      "September": "999-1,099",
+      "SeptemberMinStay": "4",
+      "October": "999-1,099",
+      "OctoberMinStay": "4",
+      "November": "999-1,300",
+      "NovemberMinStay": "4",
+      "December": "999-2,400",
+      "DecemberMinStay": "4-5"
+    },
+    {
+      "Property": "Casa Prestige",
+      "January": "10000",
+      "JanuaryMinStay": "5",
+      "February": "8000",
+      "FebruaryMinStay": "5",
+      "March": "8000",
+      "MarchMinStay": "5",
+      "April": "8000",
+      "AprilMinStay": "5",
+      "May": "8000",
+      "MayMinStay": "5",
+      "June": "8000",
+      "JuneMinStay": "5",
+      "July": "8000",
+      "JulyMinStay": "5",
+      "August": "8000",
+      "AugustMinStay": "5",
+      "September": "8000",
+      "SeptemberMinStay": "5",
+      "October": "8000",
+      "OctoberMinStay": "5",
+      "November": "8000",
+      "NovemberMinStay": "5",
+      "December": "10000",
+      "DecemberMinStay": "5"
+    },
+    {
+      "Property": "Casa Paraiso",
+      "January": "4,000-8,000",
+      "JanuaryMinStay": "3-4",
+      "February": "3,100-4,600",
+      "FebruaryMinStay": "3-4",
+      "March": "3,100-4,600",
+      "MarchMinStay": "3-4",
+      "April": "3,100-4,600",
+      "AprilMinStay": "3-4",
+      "May": "2,900-3,600",
+      "MayMinStay": "3-4",
+      "June": "2,900-3,600",
+      "JuneMinStay": "3-4",
+      "July": "2,900-3,600",
+      "JulyMinStay": "3-4",
+      "August": "2,900-3,600",
+      "AugustMinStay": "3-4",
+      "September": "2,900-3,600",
+      "SeptemberMinStay": "3-4",
+      "October": "2,900-3,600",
+      "OctoberMinStay": "3-4",
+      "November": "3,100-3,900",
+      "NovemberMinStay": "3-4",
+      "December": "3,200-8,000",
+      "DecemberMinStay": "3-5"
+    }
+];
+    
+  const container = document.getElementById("container");
+
+  properties.forEach(property => {
+    const iframe = document.createElement('iframe');
+    
+    const params = new URLSearchParams();
+    for (const key in property) {
+      if (property.hasOwnProperty(key) && property[key] !== null && property[key] !== undefined) {
+        params.append(key, property[key]);
+      }
+    }
+    
+    iframe.src = `property_iframe_content.html?${params.toString()}`;
+    iframe.style.width = "100%"; 
+    iframe.style.maxWidth = "400px"; // Limita el ancho máximo del iframe
+    iframe.style.height = "210px"; // Altura ajustada para contenido compacto
+    iframe.title = `Details for ${property.Property}`;
+    iframe.style.border = "none"; // Mantenemos sin borde, la sombra interna es suficiente
+    
+    container.appendChild(iframe);
+  });
+
+  </script>
+</body>
+</html>
