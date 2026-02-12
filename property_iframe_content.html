@@ -84,6 +84,7 @@
     <!-- El contenido se generará aquí por JavaScript -->
   </div>
 
+  <script src="properties_data.js"></script>
   <script>
     const monthGroups = {
       "Dec–Mar": ["December", "January", "February", "March"],
@@ -93,7 +94,7 @@
 
     function parseRange(rangeStr) {
       if (!rangeStr) return [null, null];
-      if (rangeStr === "N/A" || rangeStr.trim() === "") return [null, null]; // Manejar N/A o vacío
+      if (rangeStr === "N/A" || rangeStr.trim() === "") return [null, null];
       if (!rangeStr.includes('-')) {
         const val = +String(rangeStr).replace(/,/g, '');
         return [val, val];
@@ -130,7 +131,7 @@
           staysFound = true;
         }
       });
-      
+
       let priceDisplay;
       if (pricesFound) {
         const minPriceStr = minPrice.toLocaleString();
@@ -157,13 +158,17 @@
 
     function renderPropertyDetails() {
       const params = new URLSearchParams(window.location.search);
-      const propertyData = {};
-      params.forEach((value, key) => {
-        propertyData[key] = value;
-      });
+      const propertyName = params.get('property');
 
-      if (!propertyData.Property) {
-        document.getElementById("property-details-container").innerHTML = "<p>Error: Property data not found.</p>";
+      if (!propertyName) {
+        document.getElementById("property-details-container").innerHTML = "<p>Error: Property name not specified.</p>";
+        return;
+      }
+
+      const propertyData = properties.find(p => p.Property === propertyName);
+
+      if (!propertyData) {
+        document.getElementById("property-details-container").innerHTML = "<p>Error: Property not found.</p>";
         return;
       }
 
@@ -187,7 +192,6 @@
       document.getElementById("property-details-container").innerHTML = html;
     }
 
-    // Renderizar los detalles cuando la página cargue
     window.onload = renderPropertyDetails;
   </script>
 </body>

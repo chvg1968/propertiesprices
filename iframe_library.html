@@ -73,15 +73,8 @@
     const baseUrl = 'https://propertiesprices.netlify.app/property_iframe_content.html';
 
     properties.forEach((property, index) => {
-      const params = new URLSearchParams();
-      for (const key in property) {
-        if (property.hasOwnProperty(key) && property[key] !== null && property[key] !== undefined) {
-          params.append(key, property[key]);
-        }
-      }
-
-      const iframeSrc = `${baseUrl}?${params.toString()}`;
-      const iframeCode = `      <iframe \n        src="${iframeSrc}"\n        title="Details for ${property.Property}"\n        style="width: 100%; max-width: 400px; height: 210px; border: none;"\n        loading="lazy">\n      </iframe>`;
+      const iframeSrc = `${baseUrl}?property=${encodeURIComponent(property.Property)}`;
+      const iframeCode = `<iframe \n  src="${iframeSrc}"\n  title="Details for ${property.Property}"\n  style="width: 100%; max-width: 400px; height: 210px; border: none;"\n  loading="lazy">\n</iframe>`;
 
       const entryDiv = document.createElement('div');
       entryDiv.className = 'property-entry';
@@ -90,7 +83,7 @@
       title.textContent = property.Property;
 
       const textarea = document.createElement('textarea');
-      textarea.value = iframeCode.trim().replace(/^      /gm, '');
+      textarea.value = iframeCode;
       textarea.readOnly = true;
 
       const copyButton = document.createElement('button');
