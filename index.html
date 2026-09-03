@@ -36,12 +36,7 @@
     const container = document.getElementById('container');
     properties.forEach(property => {
       const iframe = document.createElement('iframe');
-      const params = new URLSearchParams();
-      for (const key in property) {
-        if (property.hasOwnProperty(key) && property[key] !== null && property[key] !== undefined) {
-          params.append(key, property[key]);
-        }
-      }
+      const params = new URLSearchParams({ property: property.Property });
       iframe.src = `property_iframe_content.html?${params.toString()}`;
       iframe.style.width = "100%";
       iframe.style.maxWidth = "400px";
